@@ -1,0 +1,738 @@
+<!-- 
+ This source code is derived from DiffusionNOCS (https://github.com/woven-planet/DiffusionNOCS/tree/gh-pages)
+ Copyright 2024 Toyota Motor Corporation.  All rights reserved. 
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <script src="bootstrap.css"></script> -->
+<script type="text/javascript" charset="utf-8"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+<style type="text/css">
+    body {
+        font-family: "Titillium Web", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 300;
+        font-size: 17px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media screen and (min-width: 980px) {
+        body {
+            width: 980px;
+        }
+    }
+
+
+    h1 {
+        font-weight: 300;
+        line-height: 1.15em;
+    }
+
+    h2 {
+        font-size: 1.75em;
+    }
+
+    a:link,
+    a:visited {
+        color: #1468b7;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #208799;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    h2,
+    h3 {
+        text-align: left;
+    }
+
+    h1 {
+        font-size: 40px;
+        font-weight: 500;
+    }
+
+    h2 {
+        font-weight: 400;
+        margin: 16px 0px 4px 0px;
+    }
+
+    h3 {
+        font-weight: 600;
+        margin: 16px 0px 4px 0px;
+    }
+
+    .paper-title {
+        padding: 1px 0px 1px 0px;
+    }
+
+    section {
+        margin: 32px 0px 32px 0px;
+        text-align: justify;
+        clear: both;
+    }
+
+    .col-5 {
+        width: 20%;
+        float: left;
+    }
+
+    .move-down {
+        margin-top: 0.6cm;
+    }
+
+    .col-4 {
+        width: 25%;
+        float: left;
+    }
+
+    .col-3 {
+        width: 33%;
+        float: left;
+    }
+
+    .col-2 {
+        width: 50%;
+        float: left;
+    }
+
+    .col-1 {
+        width: 100%;
+        float: left;
+    }
+
+    .col-8 {
+        width: 12.5%;
+    }
+
+    .author-row,
+    .affil-row {
+        font-size: 26px;
+    }
+
+    .author-row-new {
+        text-align: center;
+    }
+
+    .author-row-new a {
+        display: inline-block;
+        font-size: 20px;
+        padding: 4px;
+    }
+
+    .author-row-new sup {
+        color: #313436;
+        font-size: 12px;
+    }
+
+    .affiliations-new {
+        font-size: 18px;
+        text-align: center;
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+
+    .row {
+        margin: 16px 0px 16px 0px;
+    }
+
+    .authors {
+        font-size: 26px;
+    }
+
+    .affiliatons {
+        font-size: 18px;
+    }
+
+    .affil-row {
+        margin-top: 18px;
+    }
+
+    .teaser {
+        max-width: 100%;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .screenshot {
+        width: 256px;
+        border: 1px solid #ddd;
+    }
+
+    .screenshot-el {
+        margin-bottom: 16px;
+    }
+
+    hr {
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ddd;
+        margin: 0;
+    }
+
+    .material-icons {
+        vertical-align: -6px;
+    }
+
+    p {
+        line-height: 1.25em;
+    }
+
+    .caption {
+        font-size: 16px;
+        color: #666;
+        margin-top: 4px;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+
+    video {
+        display: block;
+        margin: auto;
+    }
+
+
+    figure {
+        display: block;
+        margin: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #bibtex pre {
+        font-size: 14px;
+        background-color: #eee;
+        padding: 16px;
+    }
+
+    .blue {
+        color: #2c82c9;
+        font-weight: bold;
+    }
+
+    .orange {
+        color: #d35400;
+        font-weight: bold;
+    }
+
+    .flex-row {
+        display: flex;
+        flex-flow: row wrap;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .paper-btn-coming-soon {
+        position: relative;
+        text-align: center;
+
+        display: inline-block;
+        margin: 8px;
+        padding: 8px 8px;
+
+        border-width: 0;
+        outline: none;
+        border-radius: 15px;
+
+        background-color: #838383;
+        color: white !important;
+        font-size: 20px;
+        width: 100px;
+        font-weight: 200;
+    }
+
+    .coming-soon {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+    }
+
+    .center {
+        margin-left: 10.0%;
+        margin-right: 10.0%;
+    }
+
+    .paper-btn {
+        position: relative;
+        text-align: center;
+
+        display: inline-block;
+        margin: 8px;
+        padding: 8px 8px;
+
+        border-width: 0;
+        outline: none;
+        border-radius: 15px;
+
+        background-color: #3e3131;
+        color: white !important;
+        font-size: 20px;
+        width: 100px;
+        font-weight: 200;
+    }
+
+    .paper-btn-parent {
+        display: flex;
+        justify-content: center;
+        margin: 16px 0px;
+    }
+
+    .paper-btn:hover {
+        opacity: 0.85;
+    }
+
+    .container {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .venue {
+        font-size: 23px;
+    }
+
+    .topnav {
+        background-color: #EEEEEE;
+        overflow: hidden;
+    }
+
+    .topnav div {
+        max-width: 1070px;
+        margin: 0 auto;
+    }
+
+    .topnav a {
+        display: inline-block;
+        color: black;
+        text-align: center;
+        vertical-align: middle;
+        padding: 16px 16px;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    .topnav img {
+        padding: 2px 0px;
+        width: 100%;
+        margin: 0.2em 0px 0.3em 0px;
+        vertical-align: middle;
+    }
+
+    pre {
+        font-size: 0.9em;
+        padding-left: 7px;
+        padding-right: 7px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        border-radius: 3px;
+        background-color: rgb(235, 235, 235);
+        overflow-x: auto;
+    }
+
+    .download-thumb {
+        display: flex;
+    }
+
+    @media only screen and (max-width: 620px) {
+        .download-thumb {
+            display: none;
+        }
+    }
+
+    .paper-stuff {
+        width: 50%;
+        font-size: 20px;
+    }
+
+    @media only screen and (max-width: 620px) {
+        .paper-stuff {
+            width: 100%;
+        }
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .column {
+        text-align: center;
+        float: left;
+        width: 16.666%;
+        padding: 5px;
+    }
+
+    .column3 {
+        text-align: center;
+        float: left;
+        width: 33.333%;
+        padding: 5px;
+    }
+
+    .column4 {
+        text-align: center;
+        float: left;
+        width: 50%;
+        padding: 5px;
+    }
+
+    .column5 {
+        text-align: center;
+        float: left;
+        width: 20%;
+        padding: 5px;
+    }
+
+    .column10 {
+        text-align: center;
+        float: left;
+        width: 10%;
+        padding: 5px;
+    }
+
+    .border-right {
+        border-right: 1px solid black;
+    }
+
+    .border-bottom {
+        border-bottom: 1px solid black;
+    }
+
+
+    .row-center {
+        margin: 16px 0px 16px 0px;
+        text-align: center;
+    }
+
+    /* Clearfix (clear floats) */
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .figure-img {
+        margin-bottom: 0.5rem;
+        line-height: 1;
+    }
+
+    .rounded-circle {
+        border-radius: 50% !important;
+    }
+
+    .sketch-font {
+        font-family: "Shadows Into Light", sans-serif;
+    }
+
+    /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 500px) {
+        .column {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+        .column3 {
+            width: 100%;
+        }
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+    th {
+        text-align: center;
+        border: 1px;
+    }
+    td {
+        border: 1px;
+        padding: 4px;
+        text-overflow: ellipsis; 
+        text-align: center;
+    }
+    th:first-child, td:first-child {
+        border-right: 3px solid #000; /* Thicker line between column 1 and column 2 */
+    }
+</style>
+<link rel="stylesheet" href="bootstrap-grid.css">
+<link rel="stylesheet" href="affiliations-container.css"></script>
+<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,600,400italic,600italic,300,300italic'
+    rel='stylesheet' type='text/css'>
+
+<head>
+    <title>
+        Sketch-MoMa: Teleoperation for Mobile Manipulator via Interpretation of Hand-Drawn Sketches
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="Teleoperation for mobile manipulators leveraging vision-launguage models and hand-drawn sketches" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="#">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="">
+    <meta name="twitter:title"
+        content="Sketch-MoMa: Teleoperation for Mobile Manipulator via Interpretation of Hand-Drawn Sketches">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="paper-title">
+            <h1>
+                <span class="sketch-font">Sketch-MoMa</span>: Teleoperation for Mobile Manipulator<br>via Interpretation of Hand-Drawn Sketches
+        </div>
+
+        <div id="authors">
+            <center>
+                <div class="author-row-new">
+                    <a href="https://www.linkedin.com/in/kosei-tanada-7239b826b/">Kosei Tanada<sup>1</sup></a>,
+                    <a href="">Yuka Iwanaga<sup>1</sup></a>,
+                    <a href="">Yuji Nakamura<sup>1</sup></a>,
+                    <a href="">Masayoshi Tsuchinaga<sup>1</sup></a>,
+                    <a href="">Takemitsu Mori<sup>1</sup></a>,<br>
+                    <a href="">Remi Sakai<sup>2</sup></a>,
+                    and <a href="">Takashi Yamamoto<sup>2</sup></a>
+                </div>
+            </center>
+            <center>
+                <div class="affiliatons">
+                    <span class="author-block">
+                        <sup>1</sup>
+                        Frontier Research Center, Toyota Motor Corporation, 
+                        <sup>2</sup> Aichi Institute of Technology
+                    </span>
+                    <div class="affiliations-logos">
+                        <a href="https://global.toyota/en/mobility/frontier-research/"
+                                style="vertical-align:middle">
+                            <img class="affiliation-logo-img" src="img/frc-logo.png">
+                        </a>
+                        <a href="https://www.ait.ac.jp/e/" style="vertical-align:middle">
+                            <img class="affiliation-logo-img" src="img/ait-logo.jpg">
+                        </a> 
+                    </div>
+                </div>
+                <div class="caption, centered">
+                    <p>
+                        (Posted on December 2024)
+                    </p>
+                </div>
+
+            </center>
+
+            <div style="clear: both">
+                <div class="paper-btn-parent">
+                    <a class="paper-btn" href="">
+                        <span class="material-icons"> feed </span>
+                        Paper
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <section id="teaser-image">
+            <center>
+                <figure>
+                    <video class="centered" width="100%" autoplay loop muted playsinline class="video-background ">
+                        <source src="img/teaser.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p class="caption, centered">
+                        We propose <b>Sketch-MoMa</b>: easy and intuitive teleoperation for
+                        mobile manipulators with hand-drawn sketches 
+                        by combining task planning with VLMs and motion planning.
+                    </p>
+                </figure>
+            </center>
+        </section>
+
+        <section id="abstract" />
+        <h2>Abstract</h2>
+        <hr>
+        <div class="flex-row">
+            <p>
+                To use assistive robots in everyday life, a remote control system with common devices, 
+                such as 2D devices, is helpful to control the robots anytime and anywhere as intended.
+                Hand-drawn sketches are one of the intuitive ways to control robots with 2D devices. 
+                However, since similar sketches have different intentions from scene to scene, 
+                existing work needs additional modalities to set the sketches' semantics.
+                This requires complex operations for users and leads to decreasing usability.
+                In this paper, we propose Sketch-MoMa, a teleoperation system 
+                using the user-given hand-drawn sketches as instructions to control a robot.
+                We use Vision-Language Models (VLMs) to understand the user-given sketches 
+                superimposed on an observation image and infer drawn shapes and low-level tasks of the robot.
+                We utilize the sketches and the generated shapes for recognition and motion planning 
+                of the generated low-level tasks for precise and intuitive operations.
+                We validate our approach using state-of-the-art VLMs with 7 tasks and 5 sketch shapes.
+                We also demonstrate that our approach effectively specifies the detailed motions, 
+                such as how to grasp and how much to rotate.
+                Moreover, we show the competitive usability of our approach compared 
+                with the existing 2D interface through a user experiment with 14 participants.
+            </p>
+        </div>
+        </section>
+
+        <div class="section">
+            <h2>Motivaion</h2>
+            <h3>What are challenges for teleoperation of robots with hand-drawn sketches?</h3>
+            <hr>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <video width="100%" controls loop="" preload="metadata" onclick="this.paused ? this.play() : this.pause(); arguments[0].preventDefault();">
+                        <source src="img/motivation_small.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="section">
+            <h2>Method</h2>
+            <hr>
+            <p> Easy and intuitive teleoperation with simple and task-intended sketches.</p>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <video width="100%" controls loop="" preload="metadata" onclick="this.paused ? this.play() : this.pause(); arguments[0].preventDefault();">
+                        <source src="img/method.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="section">
+            <h2>Task Reliability</h2>
+            <hr>
+            <p> We validated our proposal in real-world setting. </p>
+            <center>
+                <div style="width: 100%; overflow: hidden;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <td>Pick</td>
+                                <td>Place</td>
+                                <td>Move</td>
+                                <td>Pull</td>
+                                <td>Push</td>
+                                <td>Pick<br>&Place</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Task<br>Success</th>
+                                <td>7/10</td>
+                                <td>7/10</td>
+                                <td>9/10</td>
+                                <td>4/10</td>
+                                <td>0/10</td>
+                                <td>7/10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </center>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <video width="100%" class="centered" width="100%" autoplay loop muted playsinline class="video-background " onclick="this.paused ? this.play() : this.pause(); arguments[0].preventDefault();">
+                        <source src="img/task_small.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <hr>
+            <p> We also validated tasks with preferences. </p>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <video width="100%" class="centered" width="100%" autoplay loop muted playsinline class="video-background " onclick="this.paused ? this.play() : this.pause(); arguments[0].preventDefault();">
+                        <source src="img/task_small2.mp4" type="video/mp4">
+                    </video>
+                    <img width="100%" src="img/task_reliability2.svg" alt="Task reliability with preferences" />
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="section">
+            <h2>User Experiment</h2>
+            <hr>
+            <p> Our approach achieves high useabilities in some metrics. </p>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <video width="100%" controls loop="" preload="metadata" onclick="this.paused ? this.play() : this.pause(); arguments[0].preventDefault();">
+                        <source src="img/ux_small.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+        <br>
+
+
+        <div class="section">
+            <h2>Additional Website</h2>
+            <hr>
+            <div class='row vspace-top'>
+                <div class="col-sm-3">
+                    <img src='img/related/sketch-web.jpg' class='img-fluid'>
+                </div>
+
+                <div class="col">
+                    <div class='paper-title'>
+                        <a href="https://global.toyota/en/mobility/frontier-research/40518791.html"> Controlling Robots Remotely with Sketches!?
+                            Exploring New Interactions Between Humans and Robots</a>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div>
+            <!-- <hr> -->
+
+            <section id="bibtex">
+                <h2>Citation</h2>
+                <hr>
+                <pre><code>@article{frc-sketch-moma,
+    title={Sketch-MoMa: Teleoperation for Mobile Manipulator via Interpretation of Hand-Drawn Sketches}, 
+    author={Kosei Tanada and Yuka Iwanaga and Masayoshi Tsuchinaga and Yuji Nakamura and Takemitsu Mori and Remi Sakai and Takashi Yamamoto},
+    year={2024},
+    journal={arXiv},
+}</code></pre>
+            </section>
+        </div>
+
+        <div class="section">
+            <h2>Notification</h2>
+            <hr>
+            <p> The project page was solely developed for and published as part of the publication, titled
+                ``<i>Sketch-MoMa: Teleoperation for Mobile Manipulator via Interpretation of Hand-Drawn Sketches</i>'' for its
+                visualization.
+                We do not ensure the future maintenance and monitoring of this page.</p>
+            <p> Contents might be updated or deleted without notice regarding the original manuscript update and policy
+                change. </p>
+            <p>This webpage template was adapted from <a
+                    href='https://woven-planet.github.io/DiffusionNOCS/'>DiffusionNOCS</a> and <a
+                    href='https://toyotafrc.github.io/SGInit-Proj/'>SG-Init</a>  -- we thank Takuya Ikeda and Takayuki Kanai for additional support and making their source available.</p>
+        </div>
+    </div>
+</body>
+
+</html>
