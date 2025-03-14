@@ -687,6 +687,43 @@
         </div>
         <br>
 
+        <div>
+            <h2>Supplementary Materials</h2>
+            <hr>
+            <h3>Prompt</h3>
+            <details>
+                <summary>System</summary>
+                <pre><code>
+                    <div id="system-prompt-component">Loading...</div>
+                </code></pre>
+            </details>
+            <details>
+                <summary>User</summary>
+                <pre><code>
+                    <div id="task-prompt-component">Loading...</div>
+                </code></pre>
+            </details>
+        </div>
+        <script>
+            // Function to load text from file
+            async function showTextFile(response, elementId) {
+                try {
+                    const text = await response.text();
+                    document.getElementById(elementId).innerText = text;
+                } catch (error) {
+                    document.getElementById(elementId).innerText = 'Failed to load file';
+                }
+            }
+            async function loadTextFile() {
+                const response_s = await fetch('prompt/system.txt');
+                showTextFile(response_s, "system-prompt-component");
+                const response_t = await fetch('prompt/task.txt');
+                showTextFile(response_t, "task-prompt-component")
+            }
+    
+            loadTextFile(); // Call function on page load
+        </script>
+
 
         <div class="section">
             <h2>Additional Website</h2>

@@ -1,0 +1,94 @@
+The output comprises three components.
+Constraint: The constraints of the robot or the environment are provided. You do not generate this part but should ground the constraints.
+Sketch Caption: Generate a caption based on the drawn sketch lines on the provided image. Insert 'None' if no sketch is present.
+Json: Generate a sequence of json style text based on the given task and sketch. The output format is as follows:
+{
+    "task": The label of the task that the robot will do.
+    "sketch_shape": The shape label of the drawn sketches. Choose only one label. Possible labels are ["circle", "u-shape", "c-shape", "arrow", "path", "circle and arrow"].
+}
+
+Examples:
+------
+The following shows examples of your output.
+# Example 1
+Constraint: 
+Sketch Caption: Rotate object along the sketch arrow.
+Json: {
+    "task": "rotate",
+    "sketch_shape": "arrow",
+}
+# Example 2
+Constraint:
+Sketch Caption: Pick up the objet indicated by the u-shaped sketch.
+Json: {
+    "task": "pick",
+    "sketch_shape": "u-shape",
+}
+# Example 3
+Constraint: The robot is holding the object.
+Sketch Caption: Place the object at the circled area.
+Json: {
+    "task": "place",
+    "sketch_shape": "circle",
+}
+# Example 4
+Constraint: The robot is holding the object.
+Sketch Caption: pick and place the object alog the drawn arrow.
+Json: {
+    "task": "pick and place",
+    "sketch_shape": "arrow",
+}
+# Example 5
+Constraint: The robot is holding the object.
+Sketch Caption: Drop the holding object on the bin at the arrow indicated object.
+Json: {
+    "task": "drop",
+    "sketch_shape": "arrow"
+}
+# Example 6
+Constraint:
+Sketch Caption: None
+Json: {
+    "task": "assert",
+    "sketch_shape": "none",
+}
+# Example 7
+Constraint: 
+Sketch Caption: Pull the drawer handle via a drawn arrow.
+Json: {
+    "task": "pull",
+    "sketch_shape": "arrow"
+}
+# Example 8
+Constraint: 
+Sketch Caption: Push the drawer via a drawn arrow.
+Json: {
+    "task": "push",
+    "sketch_shape": "arrow",
+}
+# Example 9
+Constraint: 
+Sketch Caption: Go to the arrow indicated area.
+Json: {
+    "task": "move",
+    "sketch_shape": "arrow"
+}
+# Example 10
+Constraint: The robot is holding something.
+Sketch Caption: Follow the drawn path.
+Json: {
+    "task": "move",
+    "sketch_shape": "path",
+}
+
+Begin to execute the task:
+------
+Note:
+    - Keep output concise.
+    - Deduce 'Sketch Caption:' part solely from relevant elements in the hand-drawn line. Disregard other aspects of the provided image.
+    - Numbers on the image, if any, indicates the order of the tasks.
+Please proceed by solving the following instruction step-by-step:
+Complete the following sentence, taking into account the sketch instruction on the image: 
+Constraint: <Composed Dynamically>
+Sketch Caption: 
+Json: 
